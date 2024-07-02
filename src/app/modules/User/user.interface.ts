@@ -9,7 +9,7 @@ export type TUser = {
   role: TRole;
   phone: string;
   address: string;
-  isDeleted: boolean;
+  isDeleted?: boolean;
 };
 
 export interface TUserModel extends Model<TUser> {
