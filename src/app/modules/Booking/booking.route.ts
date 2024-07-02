@@ -3,6 +3,7 @@ import auth from "../../middlewares/auth";
 import { USER_ROLE } from "../User/user.constant";
 import validateRequest from "../../middlewares/validateRequest";
 import { bookingValidationSchema } from "./booking.validation";
+import { BookingController } from "./booking.controller";
 
 const router = Router();
 
