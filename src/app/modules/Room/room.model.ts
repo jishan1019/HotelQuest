@@ -38,6 +38,21 @@ const roomSchema = new Schema<TRoom>(
   }
 );
 
+roomSchema.pre("find", async function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+roomSchema.pre("findOne", async function (next) {
+  this.findOne({ isDeleted: { $ne: true } });
+  next();
+});
+
+roomSchema.pre("aggregate", async function (next) {
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+  next();
+});
+
 const RoomModel = model<TRoom>("Room", roomSchema);
 
 export { RoomModel };
