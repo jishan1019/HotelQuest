@@ -64,6 +64,6 @@ userSchema.statics.isPasswordMatch = async function (dbUserPass, payloadPass) {
   return await argon2.verify(dbUserPass, payloadPass);
 };
 
-const UserModel = model<TUser, TUserModel>("user", userSchema);
+const UserModel = model<TUser, TUserModel>("User", userSchema);
 
 export { UserModel };
