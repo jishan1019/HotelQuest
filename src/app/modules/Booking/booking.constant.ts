@@ -4,12 +4,12 @@ export const BookingStatus: TBookingStatus[] = [
   "booked",
   "checkIn",
   "checkOut",
-  "canceled",
+  "cancelled",
 ];
 
 export const BOOKING_STATUS = {
   booked: "booked",
   checkIn: "checkIn",
   checkOut: "checkOut",
-  canceled: "canceled",
+  cancelled: "cancelled",
 } as const;

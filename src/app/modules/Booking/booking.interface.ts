@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
 
-export type TBookingStatus = "booked" | "checkIn" | "checkOut" | "canceled";
+export type TBookingStatus = "booked" | "checkIn" | "checkOut" | "cancelled";
 
 export type TBooking = {
   user: Types.ObjectId;
@@ -8,7 +8,7 @@ export type TBooking = {
   bookedAt: string;
   checkInAt?: string;
   checkOutAt?: string;
-  canceledAt?: string;
+  cancelledAt?: string;
   totalCost?: number;
   bookingStatus: TBookingStatus;
 };

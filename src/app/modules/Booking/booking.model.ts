@@ -16,7 +16,7 @@ const bookingSchema = new Schema<TBooking>(
       type: String,
       default: null,
     },
-    canceledAt: {
+    cancelledAt: {
       type: String,
       default: null,
     },

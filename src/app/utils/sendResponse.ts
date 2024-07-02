@@ -9,30 +9,18 @@ type TResponse<T> = {
 };
 
 const sendResponse = <T>(res: Response, data: TResponse<T>) => {
-  if (
-    (Array.isArray(data.data) && data.data?.length === 0) ||
-    Object.keys(data)?.length === 0 ||
-    !data.data
-  ) {
-    data.statusCode = 404;
-    data.success = false;
-    data.message = "No Data Found";
-  }
-
-  const response = {
+  const responseData = {
     success: data.success,
     message: data.message,
     data: data.data,
-    token: data.token,
+    token: data?.token,
   };
 
-  if (!data.token) {
-    delete response.token;
+  if (!data?.token) {
+    delete responseData.token;
   }
 
-  res.status(data.statusCode).json({
-    response,
-  });
+  res.status(data.statusCode).json({ responseData });
 };
 
 export default sendResponse;

@@ -59,6 +59,7 @@ userSchema.pre("save", async function (next) {
 
 userSchema.post("save", function (user, next) {
   user.password = "";
+  next();
 });
 
 userSchema.statics.isUserExistsByCustomId = async function (id: string) {

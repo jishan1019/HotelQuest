@@ -5,6 +5,6 @@ export type TRoom = {
   type: TRoomType;
   description: string;
   pricePerNight: number;
-  isBooked: boolean;
-  isDeleted: boolean;
+  isBooked?: boolean;
+  isDeleted?: boolean;
 };
