@@ -45,9 +45,20 @@ const deleteSingleUserFromDB = async (id: string) => {
   return result;
 };
 
+const getMeFromDb = async (id: string) => {
+  const user = await UserModel.findOne({ _id: id }, { isDeleted: false });
+
+  if (!user) {
+    throw new AppError(httpStatus.BAD_REQUEST, "User not exists.");
+  }
+
+  return user;
+};
+
 export const UserService = {
   getAllUserFromDB,
   getSingleUserFromDB,
   updateUserIntroDb,
   deleteSingleUserFromDB,
+  getMeFromDb,
 };
