@@ -5,7 +5,6 @@ import { UserService } from "./user.service";
 
 const getAllUser = catchAsync(async (req, res) => {
   const query = req.query;
-
   const result = await UserService.getAllUserFromDb(query);
 
   sendResponse(res, {
