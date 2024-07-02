@@ -1,9 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <style>
+      .container {
+        width: 90%;
+        max-width: 600px;
+        margin: 0 auto;
+        border: solid 1px #ddd;
+        border-radius: 5px;
+        font-family: Arial, sans-serif;
+      }
+      .header {
+        background-color: #4caf50;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        border-radius: 5px 5px 0 0;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 24px;
+      }
+      .content {
+        padding: 20px;
+      }
+      .content p {
+        margin: 0 0 10px;
+      }
+      .content .info {
+        margin: 20px 0;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border: solid 1px #ddd;
+        border-radius: 5px;
+      }
+      .footer {
+        background-color: #f1f1f1;
+        color: #333;
+        padding: 10px;
+        text-align: center;
+        border-radius: 0 0 5px 5px;
+      }
+    </style>
   </head>
-  <body></body>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>HotelQuest</h1>
+      </div>
+      <div class="content">
+        <p>Hi <strong>{{username}}</strong>,</p>
+        <p>
+          Your Room <strong>{{roomId}}</strong> was booking successfully. Thank
+          you for choosing us!
+        </p>
+        <div class="info">
+          <p><strong>Room Id:</strong> {{roomId}}</p>
+          <p><strong>Booking Date:</strong> {{bookingDate}}</p>
+          <p><strong>Booking Email:</strong> {{userEmail}}</p>
+          <p><strong>Phone:</strong> {{phone}}</p>
+        </div>
+      </div>
+      <div class="footer">
+        <p>Thank you for using HotelQuest.</p>
+      </div>
+    </div>
+  </body>
 </html>

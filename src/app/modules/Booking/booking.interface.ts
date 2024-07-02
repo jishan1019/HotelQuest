@@ -1,4 +1,6 @@
 import { Types } from "mongoose";
+import { TRoom } from "../Room/room.interface";
+import { TUser } from "../User/user.interface";
 
 export type TBookingStatus = "booked" | "checkIn" | "checkOut" | "cancelled";
 
@@ -11,4 +13,10 @@ export type TBooking = {
   cancelledAt?: string;
   totalCost?: number;
   bookingStatus: TBookingStatus;
+};
+
+export type TPopulatedBooking = TBooking & {
+  room: TRoom;
+} & {
+  user: TUser;
 };

@@ -1,12 +1,12 @@
 import httpStatus from "http-status";
 import AppError from "../../errors/AppError";
-import { TBooking } from "./booking.interface";
+import { TBooking, TPopulatedBooking } from "./booking.interface";
 import { BookingModel } from "./booking.model";
 import mongoose from "mongoose";
 import QueryBuilder from "../../builder/QueryBuilder";
 import { BOOKING_STATUS, BookingSearchableFids } from "./booking.constant";
 import { RoomModel } from "../Room/room.model";
-import { startSession } from "mongoose";
+import { sendEmail } from "../../utils/sendEmail";
 
 const getAllBookingFromDB = async (query: Record<string, unknown>) => {
   const bookingQuery = new QueryBuilder(
@@ -49,13 +49,13 @@ const getUserBookingHistory = async (
 
 const createBookingIntroDb = async (payload: Partial<TBooking>) => {
   // Check if the car exists and is available
-  const isRoomExist = await RoomModel.findOne({
+  const roomData = await RoomModel.findOne({
     _id: payload.room,
     isDeleted: false,
     isBooked: false,
   });
 
-  if (!isRoomExist) {
+  if (!roomData) {
     throw new AppError(httpStatus.NOT_FOUND, "Room does not exist for booking");
   }
 
@@ -65,7 +65,6 @@ const createBookingIntroDb = async (payload: Partial<TBooking>) => {
     session.startTransaction();
 
     const booking = await BookingModel.create([{ ...payload }], { session });
-
     const updateRoomStatusResult = await RoomModel.findByIdAndUpdate(
       payload.room,
       { isBooked: true },
@@ -87,6 +86,16 @@ const createBookingIntroDb = async (payload: Partial<TBooking>) => {
       .populate("room")
       .session(session)
       .exec();
+
+    const { user, room } = result as unknown as TPopulatedBooking;
+
+    sendEmail(
+      user?.email,
+      user?.name,
+      user?.phone,
+      room?.roomNo,
+      payload?.bookedAt as string
+    );
 
     await session.commitTransaction();
     session.endSession();

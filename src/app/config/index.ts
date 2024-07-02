@@ -11,4 +11,6 @@ export default {
   jwt_refresh_secret: process.env.JWT_REFRESH_TOKEN,
   jwt_access_expire_time: process.env.JWT_ACCESS_EXPIRE_TIME,
   jwt_refresh_expire_time: process.env.JWT_REFRESH_EXPIRE_TIME,
+  nodemailer_email: process.env.NODEMAILER_EMAIL,
+  nodemailer_password: process.env.NODEMAILER_PASSWORD,
 };
