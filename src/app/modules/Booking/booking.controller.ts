@@ -59,9 +59,48 @@ const createBooking = catchAsync(async (req, res) => {
   });
 });
 
+const checkInBooking = catchAsync(async (req, res) => {
+  const bookingId = req.params.id;
+  const result = await BookingService.checkInBookingIntoDb(bookingId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Room Status Update to check in.",
+    data: result,
+  });
+});
+
+const checkOutBooking = catchAsync(async (req, res) => {
+  const bookingId = req.params.id;
+  const result = await BookingService.checkOutBookingIntoDb(bookingId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Room Status Update to check in.",
+    data: result,
+  });
+});
+
+const cancellingBooking = catchAsync(async (req, res) => {
+  const bookingId = req.params.id;
+  const result = await BookingService.cancellingBookingIntoDb(bookingId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Room Status Update to check in.",
+    data: result,
+  });
+});
+
 export const BookingController = {
   getAllBooking,
   getSingleBooking,
   createBooking,
   getUserBookingsHistory,
+  checkInBooking,
+  checkOutBooking,
+  cancellingBooking,
 };

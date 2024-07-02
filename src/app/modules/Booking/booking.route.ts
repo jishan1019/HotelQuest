@@ -33,24 +33,24 @@ router.post(
 );
 
 router.patch(
-  "/check-in",
+  "/check-in/:id",
   auth(USER_ROLE.user),
   validateRequest(bookingValidationSchema),
-  BookingController.createBooking //user only
+  BookingController.checkInBooking //user only
 );
 
 router.patch(
-  "/check-out",
+  "/check-out/:id",
   auth(USER_ROLE.user),
   validateRequest(bookingValidationSchema),
-  BookingController.createBooking //user only
+  BookingController.checkOutBooking //user only
 );
 
 router.patch(
-  "/cancel-bookings",
+  "/cancel-booking/:id",
   auth(USER_ROLE.user),
   validateRequest(bookingValidationSchema),
-  BookingController.createBooking //user only
+  BookingController.cancellingBooking //user only
 );
 
 export const BookingRoutes = router;

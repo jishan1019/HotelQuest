@@ -4,7 +4,7 @@ import { TBooking } from "./booking.interface";
 import { BookingModel } from "./booking.model";
 import mongoose from "mongoose";
 import QueryBuilder from "../../builder/QueryBuilder";
-import { BookingSearchableFids } from "./booking.constant";
+import { BOOKING_STATUS, BookingSearchableFids } from "./booking.constant";
 import { RoomModel } from "../Room/room.model";
 
 const getAllBookingFromDB = async (query: Record<string, unknown>) => {
@@ -99,9 +99,100 @@ const createBookingIntroDb = async (payload: Partial<TBooking>) => {
   }
 };
 
+const checkInBookingIntoDb = async (id: string) => {
+  const isBookingExist = await BookingModel.findById(id);
+  if (!isBookingExist) {
+    throw new AppError(httpStatus.BAD_REQUEST, "Booking not exists.");
+  }
+
+  const currentDate = new Date().toISOString().split("T")[0];
+
+  const bookingUpdateData = {
+    bookingStatus: BOOKING_STATUS.checkOut,
+    checkInAt: currentDate,
+  };
+
+  const result = await BookingModel.findByIdAndUpdate(id, bookingUpdateData, {
+    new: true,
+  });
+  return result;
+};
+
+const checkOutBookingIntoDb = async (id: string) => {
+  const bookingData = await BookingModel.findById(id);
+  if (!bookingData) {
+    throw new AppError(httpStatus.BAD_REQUEST, "Booking not exists.");
+  }
+
+  const roomData = await RoomModel.findById(bookingData.room).select(
+    "pricePerNight"
+  );
+
+  const currentDate = new Date().toISOString().split("T")[0];
+  const checkInAt = bookingData?.checkInAt as string;
+
+  const date1 = new Date(checkInAt);
+  const date2 = new Date(currentDate);
+
+  const time1 = date1.getTime();
+  const time2 = date2.getTime();
+
+  const differenceInTime = time1 - time2;
+  const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+
+  const totalCost = differenceInDays * (roomData?.pricePerNight as number);
+
+  const bookingUpdateData = {
+    bookingStatus: BOOKING_STATUS.checkOut,
+    checkOutAt: currentDate,
+    totalCost: totalCost,
+  };
+
+  const result = await BookingModel.findByIdAndUpdate(id, bookingUpdateData, {
+    new: true,
+  });
+  return result;
+};
+
+const cancellingBookingIntoDb = async (id: string) => {
+  const bookingRoom = await BookingModel.findById(id);
+  if (!bookingRoom) {
+    throw new AppError(httpStatus.BAD_REQUEST, "Booking not exists.");
+  }
+
+  if (bookingRoom?.bookingStatus === BOOKING_STATUS.checkIn) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      "Booking Cancel not allowed when booking status checkIn."
+    );
+  }
+
+  if (bookingRoom?.bookingStatus === BOOKING_STATUS.checkOut) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      "Cancel now allowed this booking already checked out."
+    );
+  }
+
+  const currentDate = new Date().toISOString().split("T")[0];
+
+  const bookingUpdateData = {
+    bookingStatus: BOOKING_STATUS.cancelled,
+    cancelledAt: currentDate,
+  };
+
+  const result = await BookingModel.findByIdAndUpdate(id, bookingUpdateData, {
+    new: true,
+  });
+  return result;
+};
+
 export const BookingService = {
   getAllBookingFromDB,
   getSingleBookingFromDB,
   createBookingIntroDb,
   getUserBookingHistory,
+  checkInBookingIntoDb,
+  checkOutBookingIntoDb,
+  cancellingBookingIntoDb,
 };
