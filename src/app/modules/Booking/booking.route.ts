@@ -16,13 +16,13 @@ router.get(
 router.get(
   "/single-booking/:id",
   auth(USER_ROLE.admin),
-  BookingController.getAllBooking
+  BookingController.getSingleBooking
 ); //admin
 
 router.get(
   "/my-bookings",
   auth(USER_ROLE.user),
-  BookingController.getSingleBooking
+  BookingController.getUserBookingsHistory
 ); //user all booking
 
 router.post(

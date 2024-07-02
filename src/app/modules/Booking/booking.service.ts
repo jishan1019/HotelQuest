@@ -3,15 +3,16 @@ import AppError from "../../errors/AppError";
 import { TBooking } from "./booking.interface";
 import { BookingModel } from "./booking.model";
 import mongoose from "mongoose";
-import { BOOKING_STATUS } from "./booking.constant";
 import QueryBuilder from "../../builder/QueryBuilder";
+import { BookingSearchableFids } from "./booking.constant";
+import { RoomModel } from "../Room/room.model";
 
 const getAllBookingFromDB = async (query: Record<string, unknown>) => {
   const bookingQuery = new QueryBuilder(
     BookingModel.find().populate("user").populate("room"),
     query
   )
-    .search([])
+    .search(BookingSearchableFids)
     .filter()
     .sort()
     .fields();
@@ -28,27 +29,33 @@ const getSingleBookingFromDB = async (id: string) => {
   return result;
 };
 
-const getUserBookingHistory = async (id: string) => {
-  const result = await BookingModel.find({
-    user: id,
-    bookingStatus: BOOKING_STATUS.returned,
-  })
-    .populate("user")
-    .populate("car");
+const getUserBookingHistory = async (
+  id: string,
+  query: Record<string, unknown>
+) => {
+  const bookingQuery = new QueryBuilder(
+    BookingModel.find({ user: id }).populate("user").populate("room"),
+    query
+  )
+    .search(BookingSearchableFids)
+    .filter()
+    .sort()
+    .fields();
 
+  const result = await bookingQuery.modelQuery;
   return result;
 };
 
 const createBookingIntroDb = async (payload: Partial<TBooking>) => {
   // Check if the car exists and is available
-  const isCarExist = await CarModel.findOne({
-    _id: payload.car,
+  const isRoomExist = await RoomModel.findOne({
+    _id: payload.room,
     isDeleted: false,
-    status: CarBookingStatus.AVAILABLE,
+    isBooked: false,
   });
 
-  if (!isCarExist) {
-    throw new AppError(httpStatus.NOT_FOUND, "Car does not exist for booking");
+  if (!isRoomExist) {
+    throw new AppError(httpStatus.NOT_FOUND, "Room does not exist for booking");
   }
 
   const session = await mongoose.startSession();
@@ -58,14 +65,17 @@ const createBookingIntroDb = async (payload: Partial<TBooking>) => {
 
     const booking = await BookingModel.create([{ ...payload }], { session });
 
-    const updateCarStatusResult = await CarModel.findByIdAndUpdate(
-      payload.car,
-      { status: CarBookingStatus.UNAVAILABLE },
+    const updateRoomStatusResult = await RoomModel.findByIdAndUpdate(
+      payload.room,
+      { isBooked: true },
       { new: true, session }
     );
 
-    if (!updateCarStatusResult) {
-      throw new AppError(httpStatus.BAD_REQUEST, "Failed to update car status");
+    if (!updateRoomStatusResult) {
+      throw new AppError(
+        httpStatus.BAD_REQUEST,
+        "Failed to update room status"
+      );
     }
 
     const bookingId = booking[0]._id;
@@ -73,7 +83,7 @@ const createBookingIntroDb = async (payload: Partial<TBooking>) => {
     // Populate the user and car fields
     const result = await BookingModel.findById(bookingId)
       .populate("user")
-      .populate("car")
+      .populate("room")
       .session(session)
       .exec();
 

@@ -29,7 +29,8 @@ const getSingleBooking = catchAsync(async (req, res) => {
 
 const getUserBookingsHistory = catchAsync(async (req, res) => {
   const userId = req.user.userId || "";
-  const result = await BookingService.getUserBookingHistory(userId);
+
+  const result = await BookingService.getUserBookingHistory(userId, req.query);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -44,7 +45,7 @@ const createBooking = catchAsync(async (req, res) => {
 
   const bookingData = {
     user: userId,
-    car: req.body.carId,
+    room: req.body.room,
     ...req.body,
   };
 
@@ -53,7 +54,7 @@ const createBooking = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Car booked successfully",
+    message: "Room booked successfully",
     data: result,
   });
 });
