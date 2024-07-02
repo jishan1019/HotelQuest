@@ -54,43 +54,43 @@ const createBooking = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Room booked successfully",
+    message: "Booking is created successfully",
     data: result,
   });
 });
 
 const checkInBooking = catchAsync(async (req, res) => {
-  const bookingId = req.params.id;
+  const bookingId = req.body.bookingId;
   const result = await BookingService.checkInBookingIntoDb(bookingId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Room Status Update to check in.",
+    message: "Booking Status Updated to check in",
     data: result,
   });
 });
 
 const checkOutBooking = catchAsync(async (req, res) => {
-  const bookingId = req.params.id;
+  const bookingId = req.body.bookingId;
   const result = await BookingService.checkOutBookingIntoDb(bookingId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Room Status Update to check in.",
+    message: "Booking Status Updated to check out",
     data: result,
   });
 });
 
 const cancellingBooking = catchAsync(async (req, res) => {
-  const bookingId = req.params.id;
+  const bookingId = req.body.bookingId;
   const result = await BookingService.cancellingBookingIntoDb(bookingId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Room Status Update to check in.",
+    message: "Booking cancelled",
     data: result,
   });
 });

@@ -2,7 +2,10 @@ import { Router } from "express";
 import auth from "../../middlewares/auth";
 import { USER_ROLE } from "../User/user.constant";
 import validateRequest from "../../middlewares/validateRequest";
-import { bookingValidationSchema } from "./booking.validation";
+import {
+  bookingUpdateValidationSchema,
+  bookingValidationSchema,
+} from "./booking.validation";
 import { BookingController } from "./booking.controller";
 
 const router = Router();
@@ -33,23 +36,23 @@ router.post(
 );
 
 router.patch(
-  "/check-in/:id",
-  auth(USER_ROLE.user),
-  validateRequest(bookingValidationSchema),
-  BookingController.checkInBooking //user only
+  "/check-in",
+  auth(USER_ROLE.admin),
+  validateRequest(bookingUpdateValidationSchema),
+  BookingController.checkInBooking //admin only
 );
 
 router.patch(
-  "/check-out/:id",
-  auth(USER_ROLE.user),
-  validateRequest(bookingValidationSchema),
-  BookingController.checkOutBooking //user only
+  "/check-out",
+  auth(USER_ROLE.admin),
+  validateRequest(bookingUpdateValidationSchema),
+  BookingController.checkOutBooking //admin only
 );
 
 router.patch(
-  "/cancel-booking/:id",
+  "/cancel-booking",
   auth(USER_ROLE.user),
-  validateRequest(bookingValidationSchema),
+  validateRequest(bookingUpdateValidationSchema),
   BookingController.cancellingBooking //user only
 );
 

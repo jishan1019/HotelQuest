@@ -6,3 +6,9 @@ export const bookingValidationSchema = z.object({
     room: z.string({ required_error: "Room Id is required." }),
   }),
 });
+
+export const bookingUpdateValidationSchema = z.object({
+  body: z.object({
+    bookingId: z.string({ required_error: "Booking id is required." }),
+  }),
+});
