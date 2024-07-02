@@ -14,7 +14,7 @@ app.use(express.text());
 app.use(cors({ origin: ["http://localhost:4000"] }));
 
 //Application Routes
-app.use("/api", router);
+app.use("/api/v1", router);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Server is Running!");
