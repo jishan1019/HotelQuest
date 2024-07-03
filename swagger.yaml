@@ -452,9 +452,57 @@ paths:
         "404":
           description: Not Found
 
+  /api/v1/rooms/single-room/{id}:
+    get:
+      tags:
+        - Rooms
+      summary: Get Specific Room
+      description: Retrieve details of a specific room by ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID of the room to retrieve.
+      responses:
+        "200":
+          description: Successful retrieval of room
+        "404":
+          description: Room not found
 
-
-
+  /api/v1/rooms/create-room:
+    post:
+      tags:
+        - Rooms
+      summary: Create Room
+      description: Create a new room (Admin only).
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                roomNo:
+                  type: integer
+                  example: 101
+                type:
+                  type: string
+                  example: single
+                description:
+                  type: string
+                  example: This is a single room
+                pricePerNight:
+                  type: number
+                  example: 200
+      responses:
+        "201":
+          description: Room created successfully
+        "400":
+          description: Bad Request
 
 components:
   securitySchemes:
