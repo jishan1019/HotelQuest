@@ -1,7 +1,7 @@
 import httpStatus from "http-status";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
-import { RoomService } from "./Room.service";
+import { RoomService } from "./room.service";
 
 const getAllRoom = catchAsync(async (req, res) => {
   const query = req.query;

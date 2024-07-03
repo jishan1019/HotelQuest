@@ -7,6 +7,7 @@ import handelMongooseError from "../errors/handelMongooseError";
 import handelCastError from "../errors/handelCastError";
 import handelDuplicateKeyError from "../errors/handelDuplicateKeyError";
 import AppError from "../errors/AppError";
+import config from "../config";
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   //default status code

@@ -10,7 +10,7 @@ import path from "path";
 
 const app = express();
 
-const swaggerFilePath = path.join(__dirname, "../swagger.yaml");
+const swaggerFilePath = path.join(__dirname, "./swagger.yaml");
 const swaggerJsDocument = YAML.load(swaggerFilePath);
 
 //parset
@@ -20,7 +20,7 @@ app.use(express.text());
 app.use(cors());
 
 // Serve Swagger UI
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJsDocument));
+app.use("/api-doc", swaggerUi.serve, swaggerUi.setup(swaggerJsDocument));
 
 //Application Routes
 app.use("/api/v1", router);
