@@ -38,7 +38,7 @@ paths:
                   example: user@gmail.com
                 password:
                   type: string
-                  example: password123
+                  example: 1234
       responses:
         "200":
           description: Successful login response
@@ -490,7 +490,7 @@ paths:
               properties:
                 roomNo:
                   type: integer
-                  example: 101
+                  example: 104
                 type:
                   type: string
                   example: single
@@ -678,7 +678,7 @@ paths:
               properties:
                 room:
                   type: string
-                  example: "6684d7354d1ae78aa4e0542b"
+                  example: "6685162f16a66ea12dd68a49"
                   description: ID of the room to book
                 bookedAt:
                   type: string
@@ -708,7 +708,7 @@ paths:
               properties:
                 bookingId:
                   type: string
-                  example: "668443ac8a647dc060decba3"
+                  example: "668513f324991443e113bb9e"
                   description: ID of the booking to check-in
       responses:
         "200":
@@ -735,7 +735,7 @@ paths:
               properties:
                 bookingId:
                   type: string
-                  example: "668443ac8a647dc060decba3"
+                  example: "668513f324991443e113bb9e"
                   description: ID of the booking to check-out
       responses:
         "200":
@@ -762,7 +762,7 @@ paths:
               properties:
                 bookingId:
                   type: string
-                  example: "668443ac8a647dc060decba3"
+                  example: "668513f324991443e113bb9e"
                   description: ID of the booking to cancel
       responses:
         "200":
