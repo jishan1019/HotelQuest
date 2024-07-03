@@ -567,7 +567,6 @@ paths:
 
 # Booking
 
-
   /api/v1/bookings/all-booking:
     get:
       tags:
@@ -626,6 +625,152 @@ paths:
           description: Successful retrieval of bookings
         "404":
           description: Not Found
+
+  /api/v1/bookings/single-booking/{id}:
+    get:
+      tags:
+        - Booking
+      summary: Get Single Booking
+      description: Retrieve details of a specific booking by ID. Requires admin privileges.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID of the booking to retrieve.
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Successful retrieval of booking
+        "404":
+          description: Booking not found
+
+  /api/v1/bookings/my-bookings:
+    get:
+      tags:
+        - Booking
+      summary: Get User Booking History
+      description: Retrieve booking history for the authenticated user.
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Successful retrieval of user bookings
+        "404":
+          description: No bookings found for the user
+
+  /api/v1/bookings/create-bookings:
+    post:
+      tags:
+        - Booking
+      summary: Create Booking
+      description: Create a new booking for the authenticated user.
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                room:
+                  type: string
+                  example: "6684d7354d1ae78aa4e0542b"
+                  description: ID of the room to book
+                bookedAt:
+                  type: string
+                  example: "2024-07-03"
+                  format: date
+                  description: Date of the booking (YYYY-MM-DD)
+      responses:
+        "201":
+          description: Booking created successfully
+        "400":
+          description: Invalid request body or parameters
+
+  /api/v1/bookings/check-in:
+    patch:
+      tags:
+        - Booking
+      summary: Check In Booking
+      description: Update the check-in status of a booking by ID. Requires admin privileges.
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                bookingId:
+                  type: string
+                  example: "668443ac8a647dc060decba3"
+                  description: ID of the booking to check-in
+      responses:
+        "200":
+          description: Booking check-in successful
+        "400":
+          description: Invalid request body or parameters
+        "404":
+          description: Booking not found
+
+  /api/v1/bookings/check-out:
+    patch:
+      tags:
+        - Booking
+      summary: Check Out Booking
+      description: Update the check-out status of a booking by ID. Requires admin privileges.
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                bookingId:
+                  type: string
+                  example: "668443ac8a647dc060decba3"
+                  description: ID of the booking to check-out
+      responses:
+        "200":
+          description: Booking check-out successful
+        "400":
+          description: Invalid request body or parameters
+        "404":
+          description: Booking not found
+
+  /api/v1/bookings/cancel-booking:
+    patch:
+      tags:
+        - Booking
+      summary: Cancel Booking
+      description: Cancel a booking by ID. Requires user privileges.
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                bookingId:
+                  type: string
+                  example: "668443ac8a647dc060decba3"
+                  description: ID of the booking to cancel
+      responses:
+        "200":
+          description: Booking cancellation successful
+        "400":
+          description: Invalid request body or parameters
+        "404":
+          description: Booking not found
 
 components:
   securitySchemes:
