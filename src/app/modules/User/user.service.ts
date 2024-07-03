@@ -16,7 +16,7 @@ const getAllUserFromDB = async (query: Record<string, unknown>) => {
 };
 
 const getSingleUserFromDB = async (id: string) => {
-  const user = await UserModel.isUserExistsByCustomId(id);
+  const user = await UserModel.findById(id);
 
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, "User not found");
