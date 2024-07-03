@@ -331,7 +331,6 @@ paths:
         "404":
           description: User not found
          
-
   /api/v1/users/update-user/{_id}:
     patch:
       tags:
@@ -370,6 +369,33 @@ paths:
           description: Unauthorized - Token not provided or invalid
         "404":
           description: User not found
+
+  /api/v1/users/delete-user/{_id}:
+    delete:
+      tags:
+        - User
+      summary: Delete User
+      description: Delete user by ID.
+      parameters:
+        - in: path
+          name: _id
+          required: true
+          schema:
+            type: string
+          description: ID of the user to delete.
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: User deleted successfully
+        "401":
+          description: Unauthorized - Token not provided or invalid
+        "404":
+          description: User not found
+
+
+
+
 
 components:
   securitySchemes:

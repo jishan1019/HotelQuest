@@ -49,7 +49,7 @@ const deleteSingleUserFromDB = async (id: string) => {
     { new: true }
   );
 
-  return result;
+  return null;
 };
 
 const getMeFromDb = async (id: string) => {
