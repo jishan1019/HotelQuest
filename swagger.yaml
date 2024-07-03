@@ -393,7 +393,21 @@ paths:
         "404":
           description: User not found
 
-
+  /api/v1/users/me:
+    get:
+      tags:
+        - User
+      summary: Get Me
+      description: Get user details by token.
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: User details retrieved successfully
+        "401":
+          description: Unauthorized - Token not provided or invalid
+        "404":
+          description: User not found
 
 
 
