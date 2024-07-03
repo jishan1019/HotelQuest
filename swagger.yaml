@@ -13,6 +13,8 @@ tags:
     description: Authentication related endpoints
     name: User
     description: User related endpoints
+    name: Rooms
+    description: Rooms related endpoints
 
 paths:
   /api/v1/auth/signin:
@@ -408,6 +410,49 @@ paths:
           description: Unauthorized - Token not provided or invalid
         "404":
           description: User not found
+
+
+# Room
+
+  /api/v1/rooms/all-room:
+    get:
+      tags:
+        - Rooms
+      summary: Get all rooms (Admin, User)
+      description: Endpoint to retrieve all rooms. Requires admin and user privileges.
+      parameters:
+        - name: isBooked
+          in: query
+          schema:
+            type: boolean
+          description: Filter rooms by booking status (optional)
+        - name: pricePerNight
+          in: query
+          schema:
+            type: number
+          description: Filter rooms by price per night (optional)
+        - name: type
+          in: query
+          schema:
+            type: string
+          description: Filter rooms by type (optional)
+        - name: roomNo
+          in: query
+          schema:
+            type: string
+          description: Filter rooms by room number (optional)
+        - name: searchTerm
+          in: query
+          schema:
+            type: string
+          description: Search term for rooms (optional)
+      responses:
+        "200":
+          description: Successful retrieval of rooms
+        "404":
+          description: Not Found
+
+
 
 
 
