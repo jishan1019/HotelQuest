@@ -54,7 +54,7 @@ const deleteSingleRoomFromDB = async (id: string) => {
     { isDeleted: true },
     { new: true, runValidators: true }
   );
-  return result;
+  return null;
 };
 
 export const RoomService = {

@@ -15,6 +15,8 @@ tags:
     description: User related endpoints
     name: Rooms
     description: Rooms related endpoints
+    name: Booking
+    description: Booking related endpoints
 
 paths:
   /api/v1/auth/signin:
@@ -503,6 +505,127 @@ paths:
           description: Room created successfully
         "400":
           description: Bad Request
+
+  /api/v1/rooms/update-room/{id}:
+    put:
+      tags:
+        - Rooms
+      summary: Update room
+      description: Update room details by ID (Admin only).
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID of the room to update.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  example: single
+                description:
+                  type: string
+                  example: This is a single room
+                pricePerNight:
+                  type: number
+                  example: 100
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Room updated successfully
+        "404":
+          description: Room not found
+
+  /api/v1/rooms/delete-room/{id}:
+    delete:
+      tags:
+        - Rooms
+      summary: Delete room
+      description: Endpoint to delete a room by ID. Requires admin privileges.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID of the room to delete.
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Room deleted successfully
+        "404":
+          description: Room not found
+
+
+# Booking
+
+
+  /api/v1/bookings/all-booking:
+    get:
+      tags:
+        - Booking
+      summary: Get All Booking
+      description: Retrieve all bookings. Requires admin privileges.
+      parameters:
+        - name: bookingStatus
+          in: query
+          schema:
+            type: string
+          description: Filter bookings by status (optional)
+        - name: totalCost
+          in: query
+          schema:
+            type: number
+          description: Filter bookings by total cost (optional)
+        - name: cancelledAt
+          in: query
+          schema:
+            type: string
+            format: date-time
+          description: Filter bookings by cancellation date (optional)
+        - name: checkOutAt
+          in: query
+          schema:
+            type: string
+            format: date-time
+          description: Filter bookings by check-out date (optional)
+        - name: checkInAt
+          in: query
+          schema:
+            type: string
+            format: date-time
+          description: Filter bookings by check-in date (optional)
+        - name: bookedAt
+          in: query
+          schema:
+            type: string
+            format: date-time
+          description: Filter bookings by booking date (optional)
+        - name: id
+          in: query
+          schema:
+            type: string
+          description: Filter bookings by ID (optional)
+        - name: searchTerm
+          in: query
+          schema:
+            type: string
+          description: Search term for bookings (optional)
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Successful retrieval of bookings
+        "404":
+          description: Not Found
 
 components:
   securitySchemes:
