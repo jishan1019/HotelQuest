@@ -1,0 +1,254 @@
+openapi: 3.0.0
+info:
+  title: Authentication API
+  description: API documentation for user authentication
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:4000
+    description: Development server
+
+tags:
+  - name: Auth
+    description: Authentication related endpoints
+
+paths:
+  /api/v1/auth/signin:
+    post:
+      tags:
+        - Auth
+      summary: Login User
+      description: Endpoint to log in a user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@gmail.com
+                password:
+                  type: string
+                  example: password123
+      responses:
+        "200":
+          description: Successful login response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: User login successfully
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        example: 6684d4a5cadee66a0e97a54c
+                      name:
+                        type: string
+                        example: User
+                      email:
+                        type: string
+                        example: user@gmail.com
+                      role:
+                        type: string
+                        example: user
+                      phone:
+                        type: string
+                        example: "1234567890"
+                      address:
+                        type: string
+                        example: "123 Main St, City, Country"
+                      isDeleted:
+                        type: boolean
+                        example: false
+                      createdAt:
+                        type: string
+                        format: date-time
+                        example: "2024-07-03T04:33:41.334Z"
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        example: "2024-07-03T04:33:41.334Z"
+                      __v:
+                        type: integer
+                        example: 0
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...."
+
+  /api/v1/auth/signup:
+    post:
+      tags:
+        - Auth
+      summary: Signup User
+      description: Endpoint to sign up a new user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: User
+                email:
+                  type: string
+                  format: email
+                  example: user1@gmail.com
+                password:
+                  type: string
+                  example: password123
+                role:
+                  type: string
+                  example: user  # role can be user or admin
+                phone:
+                  type: string
+                  example: "1234567890"
+                address:
+                  type: string
+                  example: "123 Main St, City, Country"
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: User is created successfully
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: User
+                      email:
+                        type: string
+                        example: user1@gmail.com
+                      password:
+                        type: string
+                        example: ""
+                      role:
+                        type: string
+                        example: user
+                      phone:
+                        type: string
+                        example: "1234567890"
+                      address:
+                        type: string
+                        example: "123 Main St, City, Country"
+                      isDeleted:
+                        type: boolean
+                        example: false
+                      _id:
+                        type: string
+                        example: 6684f55f4766f4baef72eafa
+                      createdAt:
+                        type: string
+                        format: date-time
+                        example: "2024-07-03T06:53:19.555Z"
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        example: "2024-07-03T06:53:19.555Z"
+                      __v:
+                        type: integer
+                        example: 0
+    post:
+      tags:
+        - Auth
+      summary: Signup User
+      description: Endpoint to sign up a new user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: User
+                email:
+                  type: string
+                  format: email
+                  example: user1@gmail.com
+                password:
+                  type: string
+                  example: password123
+                phone:
+                  type: string
+                  example: "1234567890"
+                address:
+                  type: string
+                  example: "123 Main St, City, Country"
+      responses:
+        "201":
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: User is created successfully
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: User
+                      email:
+                        type: string
+                        example: user1@gmail.com
+                      password:
+                        type: string
+                        example: ""
+                      role:
+                        type: string
+                        example: user
+                      phone:
+                        type: string
+                        example: "1234567890"
+                      address:
+                        type: string
+                        example: "123 Main St, City, Country"
+                      isDeleted:
+                        type: boolean
+                        example: false
+                      _id:
+                        type: string
+                        example: 6684f55f4766f4baef72eafa
+                      createdAt:
+                        type: string
+                        format: date-time
+                        example: "2024-07-03T06:53:19.555Z"
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        example: "2024-07-03T06:53:19.555Z"
+                      __v:
+                        type: integer
+                        example: 0
+
+  
