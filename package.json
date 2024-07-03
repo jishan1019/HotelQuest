@@ -11,7 +11,8 @@
     "lint:fix": "npx eslint src --fix",
     "prettier": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
     "prettier:fix": "npx prettier --write src",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && node copy-yaml.js"
   },
   "keywords": [],
   "author": "",
@@ -47,6 +48,7 @@
     "eslint-config-prettier": "^9.1.0",
     "globals": "^15.7.0",
     "prettier": "^3.3.2",
+    "shelljs": "^0.8.5",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.5.3",
     "typescript-eslint": "^7.15.0"
