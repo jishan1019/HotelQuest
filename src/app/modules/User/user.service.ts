@@ -2,9 +2,16 @@ import httpStatus from "http-status";
 import AppError from "../../errors/AppError";
 import { UserModel } from "./user.model";
 import { TUser } from "./user.interface";
+import QueryBuilder from "../../builder/QueryBuilder";
 
-const getAllUserFromDB = async () => {
-  const result = await UserModel.find();
+const getAllUserFromDB = async (query: Record<string, unknown>) => {
+  const userQuery = new QueryBuilder(UserModel.find(), query)
+    .search([])
+    .filter()
+    .sort()
+    .fields();
+
+  const result = await userQuery.modelQuery;
   return result;
 };
 

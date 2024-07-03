@@ -4,7 +4,8 @@ import sendResponse from "../../utils/sendResponse";
 import { RoomService } from "./Room.service";
 
 const getAllRoom = catchAsync(async (req, res) => {
-  const result = await RoomService.getAllRoomFromDB();
+  const query = req.query;
+  const result = await RoomService.getAllRoomFromDB(query);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

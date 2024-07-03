@@ -7,7 +7,7 @@ import auth from "../../middlewares/auth";
 
 const router = Router();
 
-router.get("/all-user", UserController.getAllUser);
+router.get("/all-user", auth(USER_ROLE.admin), UserController.getAllUser);
 router.get("/single-user/:_id", UserController.getSingleUser);
 
 router.patch(

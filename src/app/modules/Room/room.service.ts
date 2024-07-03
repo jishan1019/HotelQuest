@@ -2,9 +2,17 @@ import httpStatus from "http-status";
 import AppError from "../../errors/AppError";
 import { RoomModel } from "./room.model";
 import { TRoom } from "./room.interface";
+import QueryBuilder from "../../builder/QueryBuilder";
+import { roomSearchTrams } from "./room.constant";
 
-const getAllRoomFromDB = async () => {
-  const result = await RoomModel.find();
+const getAllRoomFromDB = async (query: Record<string, unknown>) => {
+  const roomQuery = new QueryBuilder(RoomModel.find(), query)
+    .search(roomSearchTrams)
+    .filter()
+    .sort()
+    .fields();
+
+  const result = await roomQuery.modelQuery;
   return result;
 };
 
@@ -14,6 +22,17 @@ const getSingleRoomFromDB = async (id: string) => {
 };
 
 const createRoomIntroDb = async (payload: TRoom) => {
+  const isAlreadyRoomNoExist = await RoomModel.findOne({
+    roomNo: payload?.roomNo,
+  });
+
+  if (isAlreadyRoomNoExist) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      "Room already exists same room number"
+    );
+  }
+
   const result = await RoomModel.create(payload);
   return result;
 };

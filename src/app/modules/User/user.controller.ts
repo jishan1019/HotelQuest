@@ -4,7 +4,9 @@ import sendResponse from "../../utils/sendResponse";
 import { UserService } from "./user.service";
 
 const getAllUser = catchAsync(async (req, res) => {
-  const result = await UserService.getAllUserFromDB();
+  const query = req.query;
+
+  const result = await UserService.getAllUserFromDB(query);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
