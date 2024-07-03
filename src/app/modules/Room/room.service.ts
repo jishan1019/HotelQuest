@@ -39,6 +39,7 @@ const createRoomIntroDb = async (payload: TRoom) => {
 
 const updateRoomIntroDb = async (id: string, payload: Partial<TRoom>) => {
   const isRoomExist = await RoomModel.findById(id);
+
   if (!isRoomExist) {
     throw new AppError(httpStatus.BAD_REQUEST, "Room not exists.");
   }
