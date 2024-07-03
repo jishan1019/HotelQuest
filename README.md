@@ -87,7 +87,7 @@ base_url:http://localhost:4000
 3.  **BOOKING**
 
 ```
-1. Get All Booking (GET / Admin) : {{base_url}}/api/v1/bookings/all-booking || Query: bookingStatus,totalCost,cancelledAt,checkOutAt,checkInAt,bookedAt,id || searchTerm = user email, user name, phone, room type, room description, booking status, check in, check out
+1. Get All Booking (GET / Admin) : {{base_url}}/api/v1/bookings/all-booking || Query: bookingStatus,totalCost,cancelledAt,checkOutAt,checkInAt,bookedAt,id || searchTerm = booking status, check in, check out
 
 2. Get Single Booking (GET / Admin) : {{base_url}}/api/v1/bookings/single-booking/id
 3. Get User Booking (GET / User) : {{base_url}}/api/v1/bookings/my-bookings || BerarToken

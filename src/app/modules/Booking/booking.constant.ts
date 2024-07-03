@@ -8,12 +8,6 @@ export const BookingStatus: TBookingStatus[] = [
 ];
 
 export const BookingSearchableFids = [
-  "user.email",
-  "user.name",
-  "user.address",
-  "user.phone",
-  "room.type",
-  "room.description",
   "bookedAt",
   "checkInAt",
   "checkOutAt",
