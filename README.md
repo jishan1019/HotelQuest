@@ -116,7 +116,7 @@ Production Base URL: https://hotel-quest.vercel.app
 local base_url:http://localhost:4000
 Production Base URL: https://hotel-quest.vercel.app
 
- 1. Api Doc: http://localhost:4000/api-docs/
- 2. Api Doc live Site: https://hotel-quest.vercel.app/api-docs/
+ 1. Api Doc: http://localhost:4000/api-doc/
+ 2. Api Doc live Site: https://hotel-quest.vercel.app/api-doc/
 
 ```
