@@ -251,4 +251,39 @@ paths:
                         type: integer
                         example: 0
 
-  
+  /api/v1/auth/refresh-token:
+    post:
+      tags:
+        - Auth
+      summary: Create Refresh Token
+      description: Endpoint to generate a new refresh token.
+      requestBody:
+        required: false
+      security:
+        - BearerAuth: []  # Apply Bearer authentication
+      responses:
+        '200':
+          description: Refresh token generated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Refresh token generated successfully
+                  data:
+                    type: object
+                    properties:
+                      accessToken:
+                        type: string
+                        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...."
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
