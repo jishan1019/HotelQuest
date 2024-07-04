@@ -1,0 +1,817 @@
+{
+	"info": {
+		"_postman_id": "825d5f06-d01f-4e21-a67f-986552d8816c",
+		"name": "Hotel Quest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32604155"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get All user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/all-user?email=admin@gmail.com&role=admin",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"all-user"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "admin@gmail.com"
+								},
+								{
+									"key": "role",
+									"value": "admin"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/single-user/66718b2875bc52d8fb1c960e",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"single-user",
+								"66718b2875bc52d8fb1c960e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone\": \"123456780\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/update-user/6684d48ccadee66a0e97a549",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"update-user",
+								"6684d48ccadee66a0e97a549"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/delete-user/666f003be4e7ddd0967ad63a",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"delete-user",
+								"666f003be4e7ddd0967ad63a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get me By Token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"User\",\r\n  \"email\": \"user1@gmail.com\",\r\n  \"role\": \"user\",  // role can be user or admin\r\n  \"password\": \"1234\",\r\n  \"phone\": \"1234567890\",\r\n  \"address\": \"123 Main St, City, Country\"\r\n \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/signup",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user@gmail.com\",\r\n    \"password\": \"1234\"\r\n}\r\n// {\r\n//     \"email\": \"admin@example.com\",\r\n//     \"password\": \"1234\"\r\n// }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/signin",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Refresh token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/auth/refresh-token",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Booking",
+			"item": [
+				{
+					"name": "Get All Booking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjcxNzIwMGExMzFhZTkyZjQ3ZWY3ZjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxODcxNDkwNSwiZXhwIjoxNzE5NTc4OTA1fQ.vQ358pZP0PVRS7EzG0gFCNnHq4vTDmNk-SoMGkLZK-0",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/bookings/all-booking?searchTerm=user@gmail.com",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"all-booking"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "666f256d1e6eda800a755b8e",
+									"disabled": true
+								},
+								{
+									"key": "bookedAt",
+									"value": "2024-06-15",
+									"disabled": true
+								},
+								{
+									"key": "checkInAt",
+									"value": "2024-06-15",
+									"disabled": true
+								},
+								{
+									"key": "checkOutAt",
+									"value": "2024-06-15",
+									"disabled": true
+								},
+								{
+									"key": "cancelledAt",
+									"value": "2024-06-15",
+									"disabled": true
+								},
+								{
+									"key": "totalCost",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "bookingStatus",
+									"value": "booked",
+									"disabled": true
+								},
+								{
+									"key": "searchTerm",
+									"value": "user@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Booking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjcxYTA2MmVhMTQzNDhjYzJlOTNhMDQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTg3MjI2OTcsImV4cCI6MTcxOTU4NjY5N30.I1i_8XoQB1rBdeJGZyisI_id8SLZ08UyGa9z7LkeKLE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjcxNzIwMGExMzFhZTkyZjQ3ZWY3ZjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxODcxNDkwNSwiZXhwIjoxNzE5NTc4OTA1fQ.vQ358pZP0PVRS7EzG0gFCNnHq4vTDmNk-SoMGkLZK-0",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/bookings/single-booking/id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"single-booking",
+								"id"
+							],
+							"query": [
+								{
+									"key": "carId",
+									"value": "666f256d1e6eda800a755b8e",
+									"disabled": true
+								},
+								{
+									"key": "date",
+									"value": "2024-06-15",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "My Booking By Token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjcxNzIwMGExMzFhZTkyZjQ3ZWY3ZjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxODcxNDkwNSwiZXhwIjoxNzE5NTc4OTA1fQ.vQ358pZP0PVRS7EzG0gFCNnHq4vTDmNk-SoMGkLZK-0",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/v1/bookings/my-bookings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"my-bookings"
+							],
+							"query": [
+								{
+									"key": "carId",
+									"value": "666f256d1e6eda800a755b8e",
+									"disabled": true
+								},
+								{
+									"key": "date",
+									"value": "2024-06-15",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Booking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjcxNzIwMGExMzFhZTkyZjQ3ZWY3ZjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxODcxNDkwNSwiZXhwIjoxNzE5NTc4OTA1fQ.vQ358pZP0PVRS7EzG0gFCNnHq4vTDmNk-SoMGkLZK-0",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"room\": \"6684d7354d1ae78aa4e0542b\",\r\n   \"bookedAt\": \"2024-07-01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/bookings/create-bookings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"create-bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check-In Booking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjcxNzIwMGExMzFhZTkyZjQ3ZWY3ZjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxODcxNDkwNSwiZXhwIjoxNzE5NTc4OTA1fQ.vQ358pZP0PVRS7EzG0gFCNnHq4vTDmNk-SoMGkLZK-0",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"bookingId\": \"668443ac8a647dc060decba3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/bookings/check-in",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"check-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check-Out Booking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjcxNzIwMGExMzFhZTkyZjQ3ZWY3ZjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxODcxNDkwNSwiZXhwIjoxNzE5NTc4OTA1fQ.vQ358pZP0PVRS7EzG0gFCNnHq4vTDmNk-SoMGkLZK-0",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"bookingId\": \"668443ac8a647dc060decba3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/bookings/check-out",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"check-out"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Booking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjcxNzIwMGExMzFhZTkyZjQ3ZWY3ZjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxODcxNDkwNSwiZXhwIjoxNzE5NTc4OTA1fQ.vQ358pZP0PVRS7EzG0gFCNnHq4vTDmNk-SoMGkLZK-0",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"bookingId\": \"668443ac8a647dc060decba3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/bookings/cancel-booking",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"cancel-booking"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Room",
+			"item": [
+				{
+					"name": "Get All Room",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/rooms/all-room?searchTerm=single",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"rooms",
+								"all-room"
+							],
+							"query": [
+								{
+									"key": "roomNo",
+									"value": "101",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "single",
+									"disabled": true
+								},
+								{
+									"key": "pricePerNight",
+									"value": "200",
+									"disabled": true
+								},
+								{
+									"key": "isBooked",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "searchTerm",
+									"value": "single"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Room",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/rooms/single-room/6684d7354d1ae78aa4e0542b",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"rooms",
+								"single-room",
+								"6684d7354d1ae78aa4e0542b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Room",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"roomNo\": 101,\r\n  \"type\": \"single\",\r\n  \"description\": \"This is a single room\",\r\n  \"pricePerNight\": 200\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/rooms/create-room",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"rooms",
+								"create-room"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Room",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"roomNo\": 101,\r\n  \"type\": \"single\",\r\n  \"description\": \"This is a single room\",\r\n  \"pricePerNight\": 100,\r\n  \"isDeleted\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/rooms/update-room/6684d7354d1ae78aa4e0542b",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"rooms",
+								"update-room",
+								"6684d7354d1ae78aa4e0542b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Room",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/rooms/delete-room/6684d7354d1ae78aa4e0542b",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"rooms",
+								"delete-room",
+								"6684d7354d1ae78aa4e0542b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
