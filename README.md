@@ -67,7 +67,7 @@ The HotelQuest Server is a comprehensive application designed to facilitate the 
 
 ```
 local base_url:http://localhost:4000
-Production Base URL: https://hotel-quest.vercel.app
+Production Base URL: https://hotelquest.onrender.com
 
  1. GET ALL user (Admin) : {{base_url}}/api/v1/users/all-user || Query: email,role
  2. Get Specific user (Admin,User) : {{base_url}}/api/v1/users/single-user/_id
@@ -114,9 +114,9 @@ Production Base URL: https://hotel-quest.vercel.app
 
 ```
 local base_url:http://localhost:4000
-Production Base URL: https://hotel-quest.vercel.app
+Production Base URL: https://hotelquest.onrender.com
 
  1. Api Doc: http://localhost:4000/api-doc/
- 2. Api Doc live Site: https://hotel-quest.vercel.app/api-doc/
+ 2. Api Doc live Site: https://hotelquest.onrender.com/api-doc/
 
 ```
